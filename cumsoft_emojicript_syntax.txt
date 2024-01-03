@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Define terms for tokenization
+declare -A TOKEN_MAPPING=(
+  ["apple"]="TOKEN1"
+  ["banana"]="TOKEN2"
+  # Add more mappings as needed
+)
+
+# Define a custom cipher mapping with emojis
+declare -A CIPHER_MAPPING=(
+  ["A"]="😊"
+  ["B"]="🍎"
+  ["C"]="🌟"
+  # Add more mappings as needed
+)
+
+# Function to encode a string using the custom cipher
+function encode() {
+  local input="$1"
+  local encoded=""
+
+  for ((i = 0; i < ${#input}; i++)); do
+    char="${input:$i:1}"
+    encoded+="${CIPHER_MAPPING[$char]:-$char}"
+  done
+
+  echo "$encoded"
+}
+
+# Function to tokenize a string based on specified terms
+function tokenize() {
+  local input="$1"
+  local tokenized="$input"
+
+  for term in "${!TOKEN_MAPPING[@]}"; do
+    token="${TOKEN_MAPPING[$term]}"
+    tokenized="${tokenized//"$term"/$token}"
+  done
+
+  echo "$tokenized"
+}
+
+# Function to reverse the tokenization process
+function reverse_tokenize() {
+  local tokenized="$1"
+  local original="$tokenized"
+
+  for term in "${!TOKEN_MAPPING[@]}"; do
+    token="${TOKEN_MAPPING[$term]}"
+    original="${original//"$token"/$term}"
+  done
+
+  echo "$original"
+}
+
+# Example usage
+original_text="Hello, this is an example with an apple and a banana."
+tokenized_text=$(tokenize "$original_text")
+encoded_text=$(encode "$tokenized_text")
+decoded_text=$(reverse_tokenize "$encoded_text")
+
+echo "Original: $original_text"
+echo "Tokenized: $tokenized_text"
+echo "Encoded: $encoded_text"
+echo "Decoded: $decoded_text"
