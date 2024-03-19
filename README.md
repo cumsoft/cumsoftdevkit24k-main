@@ -9,7 +9,7 @@
 
 
 
-* [] ()<!--- // // --->
+* [] (cumsoft_master_blaster_omnilist_WIP.txt)<!--- // THE MOST IMPORTANT DOC OF 24 PERIODT // --->
 * [] ()<!--- // // --->
 * [] ()<!--- // // --->
 * [] ()<!--- // // --->
