@@ -1,0 +1,62 @@
+#!/bin/bash
+
+
+#USAGE#
+
+#   > Write bash code to parse the following arguments:
+#   >
+#   > $ ./export.sh --out-file dump.json --db foo.sqlite --include-headers --exclude-rev -vvv -p9000
+
+
+
+    # Default values for optional arguments
+    INCLUDE_HEADERS=false
+    EXCLUDE_REV=false
+    VERBOSE_LEVEL=0
+    PORT=0
+
+    # Parse the arguments
+    while [[ "$#" -gt 0 ]]; do
+        case $1 in
+        --out-file) OUT_FILE="$2"; shift ;;
+        --db) DB="$2"; shift ;;
+        --include-headers) INCLUDE_HEADERS=true ;;
+        --exclude-rev) EXCLUDE_REV=true ;;
+        -v) VERBOSE_LEVEL=$((VERBOSE_LEVEL+1)) ;;
+        -p) PORT="$2"; shift ;;
+        -h|--help) 
+            echo "Usage: ./export.sh [OPTIONS]"
+            echo ""
+            echo "Options:"
+            echo "--out-file     Output file path (required)"
+            echo "--db           Database path (required)"
+            echo "--include-headers  Include column headers in output (default: false)"
+            echo "--exclude-rev   Exclude revisions in output (default: false)"
+            echo "-v              Increase verbosity level (default: 0)"
+            echo "-p              Port number (default: 0)"
+            echo "-h, --help      Show help"
+            exit 0
+            ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+        esac
+        shift
+    done
+
+    # Check required arguments
+    if [[ -z $OUT_FILE ]]; then
+        echo "Error: missing argument --out-file"
+        exit 1
+    fi
+
+    if [[ -z $DB ]]; then
+        echo "Error: missing argument --db"
+        exit 1
+    fi
+
+    # Print parsed arguments
+    echo "OUT_FILE=$OUT_FILE"
+    echo "DB=$DB"
+    echo "INCLUDE_HEADERS=$INCLUDE_HEADERS"
+    echo "EXCLUDE_REV=$EXCLUDE_REV"
+    echo "VERBOSE_LEVEL=$VERBOSE_LEVEL"
+    echo "PORT=$PORT"
