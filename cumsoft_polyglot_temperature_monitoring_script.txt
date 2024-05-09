@@ -1,0 +1,22 @@
+ #!/bin/bash
+
+# Check operating system
+if [ "$(uname)" == "Linux" ]; then
+    # Linux
+    # Check temperature using lm-sensors
+    temperature=$(sensors | grep "Package temp" | awk '{print $4}')
+    # Use the temperature as needed
+    echo "Temperature: $temperature"
+elif [ "$(uname)" == "Darwin" ]; then
+    # macOS
+    # Check temperature using third-party tool or built-in utilities
+    # Insert macOS-specific temperature check command here
+    echo "macOS temperature check command"
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    # Windows
+    # Check temperature using PowerShell or other tools
+    # Insert Windows-specific temperature check command here
+    echo "Windows temperature check command"
+else
+    echo "Unsupported operating system"
+fi

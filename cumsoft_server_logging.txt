@@ -1,0 +1,25 @@
+ #!/bin/bash
+
+# Define server details
+server1="user@server1"
+server2="user@server2"
+server3="user@server3"
+
+# Logging node
+log_server="user@logging_node"
+
+# SSH into each server and check status
+check_server() {
+    server=$1
+    echo "Checking server: $server"
+    ssh $server "systemctl status apache2" >> server_checks.log
+    # Add more commands to check other packages if needed
+}
+
+# Execute check_server function for each server
+check_server $server1
+check_server $server2
+check_server $server3
+
+# Copy log file to logging node
+scp server_checks.log $log_server:~/server_logs/

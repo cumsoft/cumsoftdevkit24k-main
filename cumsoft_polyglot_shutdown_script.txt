@@ -1,0 +1,23 @@
+ #!/bin/bash
+
+# Check operating system
+if [ "$(uname)" == "Linux" ]; then
+    # Linux
+    # Shutdown command for Linux
+    shutdown_cmd="sudo shutdown -h now"
+elif [ "$(uname)" == "Darwin" ]; then
+    # macOS
+    # Shutdown command for macOS
+    shutdown_cmd="sudo shutdown -h now"
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    # Windows
+    # Shutdown command for Windows
+    shutdown_cmd="shutdown /s /t 0"
+else
+    echo "Unsupported operating system"
+    exit 1
+fi
+
+# Perform the shutdown
+echo "Initiating shutdown..."
+$shutdown_cmd
